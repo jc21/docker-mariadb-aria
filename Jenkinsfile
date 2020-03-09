@@ -26,7 +26,7 @@ pipeline {
 					withCredentials([usernamePassword(credentialsId: 'jc21-dockerhub', passwordVariable: 'dpass', usernameVariable: 'duser')]) {
 						sh "docker login -u '${duser}' -p '${dpass}'"
 						// Buildx with push
-						sh "./scripts/buildx --push -t docker.io/jc21/${IMAGE}:10.4"
+						sh "./scripts/buildx --push -t docker.io/jc21/${IMAGE}:10.4 -t docker.io/jc21/${image}:latest"
 					}
 				}
 			}
