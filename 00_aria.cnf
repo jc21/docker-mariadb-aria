@@ -5,3 +5,5 @@ default-tmp-storage-engine=Aria
 innodb=OFF
 symbolic-links=0
 log-output=file
+skip-host-cache
+skip-name-resolve

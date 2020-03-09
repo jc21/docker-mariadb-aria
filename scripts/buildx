@@ -1,0 +1,40 @@
+#!/bin/bash
+
+CYAN='\E[1;36m'
+YELLOW='\E[1;33m'
+BLUE='\E[1;34m'
+GREEN='\E[1;32m'
+RED='\E[1;31m'
+RESET='\E[0m'
+
+echo -e "${BLUE}❯ ${CYAN}Building docker multiarch: ${YELLOW}${*}${RESET}"
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "${DIR}/.." || exit 1
+
+# determine commit if not already set
+if [ "$BUILD_COMMIT" == "" ]; then
+	BUILD_COMMIT=$(git log -n 1 --format=%h)
+fi
+
+# Buildx Builder
+# Ensure docker-compose exists
+if hash docker 2>/dev/null; then
+	docker buildx create --name "${BUILDX_NAME:-mariadb}" || echo
+	docker buildx use "${BUILDX_NAME:-mariadb}"
+
+	docker buildx build \
+		--platform linux/amd64,linux/arm64,linux/arm/7 \
+		--progress plain \
+		--pull \
+		-f Dockerfile \
+		$@ \
+		.
+
+	rc=$?
+	docker buildx rm "${BUILDX_NAME:-mariadb}"
+	echo -e "${BLUE}❯ ${GREEN}Multiarch build Complete with code: ${YELLOW}${rc}${RESET}"
+	exit $rc
+else
+	echo -e "${RED}❯ docker command is not available${RESET}"
+fi
