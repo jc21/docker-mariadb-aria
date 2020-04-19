@@ -13,7 +13,7 @@ pipeline {
 		COMPOSE_FILE               = 'docker/docker-compose.ci.yml'
 		COMPOSE_INTERACTIVE_NO_CLI = 1
 		BUILDX_NAME                = "${COMPOSE_PROJECT_NAME}"
-		SPECIFIC_TAG               = '10.4'
+		SPECIFIC_TAG               = '10.4.12'
 	}
 	stages {
 		stage('MultiArch Build') {
