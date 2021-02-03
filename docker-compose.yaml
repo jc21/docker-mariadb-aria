@@ -1,0 +1,33 @@
+# docker-compose.yml
+# RUN: ```docker-compose --env-file```
+version: "3.7"
+
+secrets:
+  # paths assume the .secrets folder is sibling depth to folder where docker-compose resides
+  DB_ROOT_PWD:
+    file: ../homelab-setup/docker_secrets/db_root_pwd.txt
+  MYSQL_PWD:
+    file: ../homelab-setup/docker_secrets/mysql_pwd.txt
+
+services:
+  mariadb:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # args:
+      #   SOURCE: yobasystems/alpine
+      #   VERSION: latest
+    image: mariadb:test
+    container_name: mariadb
+    secrets:
+      - DB_ROOT_PWD
+      - MYSQL_PWD
+    environment:
+      # MYSQL_ROOT_PASSWORD: "npm"
+      MYSQL_ROOT_PASSWORD__FILE: /run/secrets/DB_ROOT_PWD
+      MYSQL_DATABASE: "npm"
+      MYSQL_USER: "npm"
+      # MYSQL_PASSWORD: "npm"
+      MYSQL_PASSWORD__FILE: /run/secrets/MYSQL_PWD 
+    volumes:
+      - ./data/mysql:/var/lib/mysql
