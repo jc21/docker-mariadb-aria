@@ -9,3 +9,10 @@ LABEL maintainer="Jamie Curnow <jc@jc21.com>"
 
 COPY 00_aria.cnf .
 RUN cat /00_aria.cnf >> /etc/mysql/my.cnf
+
+# secret-init.sh requires bash for variable expanshiopn
+RUN apk add --no-cache bash && \
+    rm -f /var/cache/apk/*
+    
+COPY ./scripts/run_secret-init.sh /scripts/pre-init.d
+COPY ./scripts/secret-init.sh /scripts/
