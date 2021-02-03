@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# logic cribbed from linuxserver.io: 
+# https://github.com/linuxserver/docker-baseimage-ubuntu/blob/bionic/root/etc/cont-init.d/01-envfile
+
 # logging
 logger() {
 	local type="$1"; shift
