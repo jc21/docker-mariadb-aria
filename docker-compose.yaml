@@ -10,14 +10,16 @@ version: "3.7"
 #     file: ../homelab-setup/docker_secrets/mysql_pwd.txt
 
 services:
-  mariadb:
+  mariadb:    
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile_compose
       args:
-        SOURCE: yobasystems/alpine
-        VERSION: arm64v8
-    image: mariadb:test
+        # SOURCE: yobasystems/alpine
+        VERSION: amd64
+        # VERSION: arm64
+    image: mariadb-aria:test
+
     # container_name: mariadb
     # secrets:
     #   - DB_ROOT_PWD
