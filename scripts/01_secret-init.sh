@@ -28,7 +28,7 @@ for FULLVAR in $(env | grep "^.*__FILE="); do
         echo "[secret_init] Set ${STRIPVAR} to $(eval echo \$${STRIPVAR})"  # DEBUG - rm for prod!
         
         export "${STRIPVAR}"
-        echo "[secret-init] Success! ${STRIPFILE} set from ${VARNAME}"
+        echo "[secret-init] Success! ${STRIPVAR} set from ${VARNAME}"
         
     else
         echo "[secret-init] ERROR: Cannot find secret in ${VARNAME}"
