@@ -1,6 +1,8 @@
 ARG TARGETPLATFORM
+# FROM --platform=${TARGETPLATFORM:-linux/amd64} yobasystems/alpine-mariadb
 
-FROM --platform=${TARGETPLATFORM:-linux/amd64} yobasystems/alpine-mariadb
+# ${TARGETPLATFORM:-linux/amd64}  seems to force linux/amd64 only in this case
+FROM yobasystems/alpine-mariadb
 
 # LABEL maintainer="Jamie Curnow <jc@jc21.com>"
 
