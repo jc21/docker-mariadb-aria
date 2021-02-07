@@ -4,7 +4,6 @@ CYAN='\E[1;36m'
 YELLOW='\E[1;33m'
 BLUE='\E[1;34m'
 GREEN='\E[1;32m'
-RED='\E[1;31m'
 RESET='\E[0m'
 
 echo -e "${BLUE}❯ ${CYAN}Building docker multiarch: ${YELLOW}${*}${RESET}"
@@ -18,23 +17,21 @@ if [ "$BUILD_COMMIT" == "" ]; then
 fi
 
 # Buildx Builder
-# Ensure docker-compose exists
-if hash docker 2>/dev/null; then
-	docker buildx create --name "${BUILDX_NAME:-mariadb}" || echo
-	docker buildx use "${BUILDX_NAME:-mariadb}"
+docker buildx create --name "${BUILDX_NAME:-mariadb}" || echo
+docker buildx use "${BUILDX_NAME:-mariadb}"
 
-	docker buildx build \
-		--platform linux/amd64,linux/arm64,linux/arm/7 \
-		--progress plain \
-		--pull \
-		-f Dockerfile \
-		$@ \
-		.
+docker buildx build \
+	--build-arg MARIADB_VERSION="${MARIADB_VERSION:-10.4.15}" \
+	--build-arg BUILD_COMMIT="${BUILD_COMMIT:-notset}" \
+	--build-arg BUILD_DATE="$(date '+%Y-%m-%d %T %Z')" \
+	--platform linux/amd64,linux/arm64,linux/arm/7 \
+	--progress plain \
+	--pull \
+	-f Dockerfile \
+	$@ \
+	.
 
-	rc=$?
-	docker buildx rm "${BUILDX_NAME:-mariadb}"
-	echo -e "${BLUE}❯ ${GREEN}Multiarch build Complete with code: ${YELLOW}${rc}${RESET}"
-	exit $rc
-else
-	echo -e "${RED}❯ docker command is not available${RESET}"
-fi
+rc=$?
+docker buildx rm "${BUILDX_NAME:-mariadb}"
+echo -e "${BLUE}❯ ${GREEN}Multiarch build Complete${RESET}"
+exit $rc
