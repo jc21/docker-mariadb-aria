@@ -15,17 +15,17 @@ for FULLVAR in $(env | grep "^.*__FILE="); do
     # WARNING: It's not foolproof is an arbitrary command injection vulnerability 
     eval SECRETFILE="\$${VARNAME}"
 
-    echo "[secret-init] Setting SECRETFILE to ${SECRETFILE} ..."  # DEBUG - rm for prod!
+    # echo "[secret-init] Setting SECRETFILE to ${SECRETFILE} ..."  # DEBUG - rm for prod!
     
     # if SECRETFILE exists
     if [[ -f ${SECRETFILE} ]]; then
         # strip the appended "__FILE" from environmental variable name
         STRIPVAR=$(echo $VARNAME | sed "s/__FILE//g")
-        echo "[secret-init] Set STRIPVAR to ${STRIPVAR}"  # DEBUG - rm for prod!
+        # echo "[secret-init] Set STRIPVAR to ${STRIPVAR}"  # DEBUG - rm for prod!
 
         # set value to contents of secretfile
         eval ${STRIPVAR}=$(cat "${SECRETFILE}")
-        echo "[secret_init] Set ${STRIPVAR} to $(eval echo \$${STRIPVAR})"  # DEBUG - rm for prod!
+        # echo "[secret_init] Set ${STRIPVAR} to $(eval echo \$${STRIPVAR})"  # DEBUG - rm for prod!
         
         export "${STRIPVAR}"
         echo "[secret-init] Success! ${STRIPVAR} set from ${VARNAME}"
