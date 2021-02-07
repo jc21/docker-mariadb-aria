@@ -1,7 +1,7 @@
 ARG TARGETPLATFORM
 ARG MARIADB_VERSION
 
-FROM --platform=${TARGETPLATFORM:-linux/amd64} yobasystems/alpine-mariadb:${MARIADB_VERSION:-10.4.15}
+FROM yobasystems/alpine-mariadb:${MARIADB_VERSION:-10.4.15}
 
 LABEL maintainer="Jamie Curnow <jc@jc21.com>"
 
