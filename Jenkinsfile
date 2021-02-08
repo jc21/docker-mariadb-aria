@@ -18,6 +18,7 @@ pipeline {
 			agent {
 				docker {
 					image 'hadolint/hadolint:latest-debian'
+					label 'docker'
 				}
 			}
 			steps {
