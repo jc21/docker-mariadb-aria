@@ -21,7 +21,7 @@ This image supports the use of Docker secrets to import from file and keep sensi
 
 You can set any environment variable from a file by appending `__FILE` (double-underscore FILE) to the environmental variable name.
 
-```
+```yml
 version: '3.7'
 
 secrets:
