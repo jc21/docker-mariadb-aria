@@ -1,11 +1,7 @@
 ARG MARIADB_VERSION
 
 FROM yobasystems/alpine-mariadb:${MARIADB_VERSION:-10.4.15}
-
-# LABEL maintainer="Jamie Curnow <jc@jc21.com>"
-
-# mariadb does not appear to load conf.d files by default
-#ADD 00_aria.cnf /etc/mysql/conf.d/00_aria.cnf
+LABEL maintainer="Jamie Curnow <jc@jc21.com>"
 
 COPY 00_aria.cnf .
 RUN cat /00_aria.cnf >> /etc/mysql/my.cnf
@@ -22,3 +18,4 @@ LABEL org.label-schema.schema-version="1.0" \
 	org.label-schema.vcs-url="https://github.com/jc21/docker-mariadb-aria.git" \
 	org.label-schema.vcs-ref="${BUILD_COMMIT:-}" \
 	org.label-schema.cmd="docker run -d jc21/mariadb-aria"
+
