@@ -1,15 +1,15 @@
-ARG TARGETPLATFORM
 ARG MARIADB_VERSION
 
 FROM yobasystems/alpine-mariadb:${MARIADB_VERSION:-10.4.15}
 
-LABEL maintainer="Jamie Curnow <jc@jc21.com>"
+# LABEL maintainer="Jamie Curnow <jc@jc21.com>"
 
 # mariadb does not appear to load conf.d files by default
 #ADD 00_aria.cnf /etc/mysql/conf.d/00_aria.cnf
 
 COPY 00_aria.cnf .
 RUN cat /00_aria.cnf >> /etc/mysql/my.cnf
+COPY ./scripts/01_secret-init.sh /scripts/pre-init.d
 
 ARG BUILD_DATE
 ARG BUILD_COMMIT
