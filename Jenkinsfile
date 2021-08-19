@@ -38,7 +38,8 @@ pipeline {
 					}
 					steps {
 						script {
-							env.BUILDX_PUSH_TAGS = "-t docker.io/jc21/${IMAGE}:latest -t docker.io/jc21/${IMAGE}:${MARIADB_VERSION}"
+							env.BUILDX_PUSH_TAGS        = "-t docker.io/jc21/${IMAGE}:latest -t docker.io/jc21/${IMAGE}:${MARIADB_VERSION}"
+							env.BUILDX_PUSH_TAGS_INNODB = "-t docker.io/jc21/${IMAGE}:latest-innodb -t docker.io/jc21/${IMAGE}:${MARIADB_VERSION}-innodb"
 						}
 					}
 				}
@@ -51,7 +52,8 @@ pipeline {
 					steps {
 						script {
 							// Defaults to the Branch name, which is applies to all branches AND pr's
-							env.BUILDX_PUSH_TAGS = "-t docker.io/jc21/${IMAGE}:github-${BRANCH_LOWER}"
+							env.BUILDX_PUSH_TAGS        = "-t docker.io/jc21/${IMAGE}:github-${BRANCH_LOWER}"
+							env.BUILDX_PUSH_TAGS_INNODB = "-t docker.io/jc21/${IMAGE}:github-${BRANCH_LOWER}-innodb"
 						}
 					}
 				}
@@ -66,7 +68,8 @@ pipeline {
 			steps {
 				withCredentials([usernamePassword(credentialsId: 'jc21-dockerhub', passwordVariable: 'dpass', usernameVariable: 'duser')]) {
 					sh "docker login -u '${duser}' -p '${dpass}'"
-					sh "./scripts/buildx --push ${BUILDX_PUSH_TAGS}"
+					sh "./scripts/buildx --push -f Dockerfile ${BUILDX_PUSH_TAGS}"
+					sh "./scripts/buildx --push -f Dockerfile.innodb ${BUILDX_PUSH_TAGS_INNODB}"
 				}
 			}
 		}

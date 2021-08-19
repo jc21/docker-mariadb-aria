@@ -1,0 +1,7 @@
+[mysqld]
+default-storage-engine=Aria
+default-tmp-storage-engine=Aria
+symbolic-links=0
+log-output=file
+skip-host-cache
+skip-name-resolve
