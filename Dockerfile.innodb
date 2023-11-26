@@ -1,10 +1,10 @@
 ARG MARIADB_VERSION
 
-FROM yobasystems/alpine-mariadb:${MARIADB_VERSION:-10.4.15}
+FROM yobasystems/alpine-mariadb:${MARIADB_VERSION:-10.11.5}
 LABEL maintainer="Jamie Curnow <jc@jc21.com>"
 
 COPY 00_aria_innodb.cnf .
-RUN cat /00_aria_innodb.cnf >> /etc/mysql/my.cnf
+COPY 00_aria_innodb.cnf /etc/my.cnf.d/00_aria_innodb.cnf
 COPY ./scripts/01_secret-init.sh /scripts/pre-init.d
 
 ARG BUILD_DATE
@@ -17,4 +17,4 @@ LABEL org.label-schema.schema-version="1.0" \
 	org.label-schema.url="https://github.com/jc21/docker-mariadb-aria" \
 	org.label-schema.vcs-url="https://github.com/jc21/docker-mariadb-aria.git" \
 	org.label-schema.vcs-ref="${BUILD_COMMIT:-}" \
-	org.label-schema.cmd="docker run -d jc21/mariadb-aria:${MARIADB_VERSION:-10.4.15}-innodb"
+	org.label-schema.cmd="docker run -d jc21/mariadb-aria:${MARIADB_VERSION:-10.11.5}-innodb"

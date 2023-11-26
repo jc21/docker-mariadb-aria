@@ -1,10 +1,9 @@
 ARG MARIADB_VERSION
 
-FROM yobasystems/alpine-mariadb:${MARIADB_VERSION:-10.4.15}
+FROM yobasystems/alpine-mariadb:${MARIADB_VERSION:-10.11.5}
 LABEL maintainer="Jamie Curnow <jc@jc21.com>"
 
-COPY 00_aria.cnf .
-RUN cat /00_aria.cnf >> /etc/mysql/my.cnf
+COPY 00_aria.cnf /etc/my.cnf.d/00_aria.cnf
 COPY ./scripts/01_secret-init.sh /scripts/pre-init.d
 
 ARG BUILD_DATE

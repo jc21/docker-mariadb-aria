@@ -1,7 +1,7 @@
 # mariadb-ariadb
 
 <p>
-  <img src="https://img.shields.io/badge/MariaDB-10.4.15-brightgreen?style=for-the-badge">
+  <img src="https://img.shields.io/badge/MariaDB-10.11.5-brightgreen?style=for-the-badge">
   <a href="https://hub.docker.com/repository/docker/jc21/mariadb-aria">
     <img src="https://img.shields.io/docker/image-size/jc21/mariadb-aria/latest?style=for-the-badge">
   </a>
