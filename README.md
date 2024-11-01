@@ -1,7 +1,7 @@
 # mariadb-ariadb
 
 <p>
-  <img src="https://img.shields.io/badge/MariaDB-10.11.5-brightgreen?style=for-the-badge">
+  <img src="https://img.shields.io/badge/MariaDB-10.11.8-brightgreen?style=for-the-badge">
   <a href="https://hub.docker.com/repository/docker/jc21/mariadb-aria">
     <img src="https://img.shields.io/docker/image-size/jc21/mariadb-aria/latest?style=for-the-badge">
   </a>
@@ -13,13 +13,13 @@
   </a>
 </p>
 
-
 This is a simple extension of [yobasystems/alpine-mariadb](https://hub.docker.com/r/yobasystems/alpine-mariadb)
 image that forces `aria` storage engine by default.
 
 It supports [the same configuration options](https://hub.docker.com/r/yobasystems/alpine-mariadb) as the source image.
 
 ### Docker Secrets
+
 This image supports the use of Docker secrets to import from file and keep sensitive usernames or passwords from being passed or preserved in plaintext.
 
 You can set any environment variable from a file by appending `__FILE` (double-underscore FILE) to the environmental variable name.
@@ -48,10 +48,9 @@ services
       MYSQL_DATABASE: "npm"
       MYSQL_USER: "npm"
       # MYSQL_PASSWORD: "npm"  # use secret instead
-      MYSQL_PASSWORD__FILE: /run/secrets/MYSQL_PWD 
+      MYSQL_PASSWORD__FILE: /run/secrets/MYSQL_PWD
     volumes:
       - ./data/mysql:/var/lib/mysql
 ```
-
 
 [View on DockerHub](https://hub.docker.com/repository/docker/jc21/mariadb-aria)

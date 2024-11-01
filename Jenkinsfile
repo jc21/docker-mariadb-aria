@@ -11,7 +11,7 @@ pipeline {
 		IMAGE           = 'mariadb-aria'
 		BRANCH_LOWER    = "${BRANCH_NAME.toLowerCase().replaceAll('/', '-')}"
 		BUILDX_NAME     = "${COMPOSE_PROJECT_NAME}"
-		MARIADB_VERSION = '10.11.5'
+		MARIADB_VERSION = '10.11.8'
 	}
 	stages {
 		stage ("lint dockerfile") {
